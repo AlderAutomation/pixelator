@@ -1,7 +1,7 @@
 from typing import Text
 from PIL import Image, ImageTk
 import tkinter as tk 
-from tkinter import filedialog as fd
+from tkinter import Tk, filedialog as fd
 
 
 class application(tk.Frame):
@@ -16,26 +16,30 @@ class application(tk.Frame):
 
 
     def create_widgets(self):
+        self.instructions = tk.Label(self, text="Placeholder for instructions")
+        self.instructions.grid(row=0, column=0)
+
         self.load_button = tk.Button(self, text="Load Image", command=self.load_image)
-        self.load_button.grid(row=0, column=0)
+        self.load_button.grid(row=1, column=0)
 
         self.logo = Image.open("/media/matthew/BigOlUSB/Code/2021_Project/Pixel Art Generator/logo.png")
-        self.logoimg = ImageTk.PhotoImage(self.logo)
+        self.resized_logo = self.logo.resize((500,500), Image.ANTIALIAS)
+        self.logoimg = ImageTk.PhotoImage(self.resized_logo)
 
         self.image_viewer = tk.Label(self, image=self.logoimg)
-        self.image_viewer.grid(row=1, column=0, columnspan=2)
+        self.image_viewer.grid(row=2, column=0, columnspan=2)
 
         self.button_32 = tk.Button(self, text="32 X 32", command=self.set_size_32)
-        self.button_32.grid(row=2, column=0)
+        self.button_32.grid(row=3, column=0)
 
         self.button_64 = tk.Button(self, text="64 X 64", command=self.set_size_64)
-        self.button_64.grid(row=2, column=1)
+        self.button_64.grid(row=3, column=1)
 
         self.test_button = tk.Button(self, text="Test Image", command=self.show_image)
-        self.test_button.grid(row=3, column=0)
+        self.test_button.grid(row=4, column=0)
 
         self.save_button = tk.Button(self, text="Save Image", command=self.save_image)
-        self.save_button.grid(row=3, column=1)
+        self.save_button.grid(row=4, column=1)
 
 
     def set_size_32(self):
